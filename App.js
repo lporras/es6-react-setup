@@ -4,11 +4,8 @@ import ReactDOM from 'react-dom';
 class App extends React.Component {
     constructor() {
       super();
-      this.state = {
-        txt: 'this is the state txt',
-        cat: 0
-      };
-
+      this.state = {txt: ''};
+      this.update = this.update.bind(this);
     }
     update(e) {
       this.setState({txt: e.target.value})
@@ -16,18 +13,23 @@ class App extends React.Component {
     render() {
       return (
         <div>
-          <input type='text' onChange={this.update.bind(this)}/>
-          <h1>{this.state.txt}</h1>
-          <p>{this.state.cat}</p>
-          <b>bold</b>
+          <Widget txt={this.state.txt} update={this.update} />
         </div>
       );
     }
 }
 
+const Widget = (props) => {
+  return (
+    <div>
+      <input type='text' onChange={props.update}/>
+      <h1>{props.txt}</h1>
+    </div>
+  );
+}
+
 App.propTypes = {
-  txt: React.PropTypes.string,
-  cat: React.PropTypes.number.isRequired
+  txt: React.PropTypes.string
 }
 
 App.defaultProps = {
